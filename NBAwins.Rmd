@@ -1,0 +1,62 @@
+---
+title: "NBAWins"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+
+# Importing and Cleaning Data
+```{r}
+data1819 <- read.csv("C://Users//Nick//Downloads//NBAWINS.csv")
+head(data)
+
+# The PlusMinus field shows how much "Team" is winning by going into the 4th quarter
+
+# Change +/- which was read by R as
+
+data1819 <- data1819%>%
+  rename(PlusMinus = X...)
+
+data1819 <- data1819%>%
+  select(-X, -Rk)
+
+data1718 <- read.csv("C://Users//Nick//Downloads//NBAWINS20172018.csv")
+
+data1718 <- data1718%>%
+  rename(PlusMinus = X...)
+
+data1718 <- data1718%>%
+  select(-X, -Rk)
+
+
+```
+
+```{r}
+
+data_bothseasons <- full_join(data1819, data1718)
+
+```
+
+```{r}
+winning_by_10 <- data1819%>%
+  filter(PlusMinus > 9)
+
+```
+
+
+```{r}
+winning_by_10_and_won <- winning_by_10%>%
+  filter(str_detect(Final, '^W'))
+
+```
+
+```{r}
+final_percentage <- (nrow(winning_by_10_and_won)/nrow(winning_by_10)) * 100
+final_percentage
+
+```
+
+
