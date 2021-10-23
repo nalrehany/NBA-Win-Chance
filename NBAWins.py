@@ -1,7 +1,7 @@
 from nba_api.stats.endpoints import scoreboard
 import pandas as pd 
 import time
-import numpy as np
+
 
 # Set a date range for games played
 dates = pd.date_range('2015-10-25', '2018-07-05')
